@@ -25,7 +25,7 @@ export default function ContactDemo() {
   const { submit: onSubmit } = useWeb3Forms({
     access_key: apiKey,
     settings: {
-      from_name: "Acme Inc",
+      from_name: "Amit Lakade",
       subject: "New Contact Message from your Website",
     },
     onSuccess: (msg, data) => {
