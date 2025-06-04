@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 import { useForm, useWatch } from "react-hook-form";
-import HCaptcha from '@hcaptcha/react-hcaptcha';
 
-export default function HCaptchaContact() {
+export default function SubjectName() {
   const {
     register,
     handleSubmit,
@@ -13,10 +12,8 @@ export default function HCaptchaContact() {
   } = useForm({
     mode: "onTouched",
   });
-  
   const [isSuccess, setIsSuccess] = React.useState(false);
-  const [message, setMessage] = React.useState("");
-  const captchaRef = useRef(null);
+  const [Message, setMessage] = React.useState("");
 
   const userName = useWatch({
     control,
@@ -27,10 +24,6 @@ export default function HCaptchaContact() {
   useEffect(() => {
     setValue("subject", `${userName} sent a message from Website`);
   }, [userName, setValue]);
-
-  const onHCaptchaChange = (token) => {
-    setValue("h-captcha-response", token);
-  };
 
   const onSubmit = async (data, e) => {
     console.log(data);
@@ -49,7 +42,6 @@ export default function HCaptchaContact() {
           setMessage(json.message);
           e.target.reset();
           reset();
-          captchaRef.current.resetCaptcha();
         } else {
           setIsSuccess(false);
           setMessage(json.message);
@@ -157,24 +149,9 @@ export default function HCaptchaContact() {
               )}
             </div>
 
-            <div className="mb-5">
-              <HCaptcha
-                ref={captchaRef}
-                sitekey="50b2fe65-b00b-4b9e-ad62-3ba471098be2"
-                reCaptchaCompat={false}
-                onVerify={onHCaptchaChange}
-              />
-              {errors["h-captcha-response"] && (
-                <div className="mt-1 text-red-600">
-                  <small>Please complete the captcha</small>
-                </div>
-              )}
-            </div>
-
             <button
               type="submit"
               className="w-full py-4 text-white transition-colors bg-indigo-600 rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-offset-2 focus:ring focus:ring-indigo-200 px-7 umami--click--contact-submit"
-              disabled={isSubmitting}
             >
               {isSubmitting ? (
                 <svg
@@ -221,7 +198,7 @@ export default function HCaptchaContact() {
                 />
               </svg>
               <h3 className="py-5 text-2xl text-green-500">Success</h3>
-              <p className="text-gray-700 md:px-3">{message}</p>
+              <p className="text-gray-700 md:px-3">{Message}</p>
               <button
                 className="mt-6 text-indigo-600 focus:outline-none"
                 onClick={() => reset()}
@@ -252,7 +229,7 @@ export default function HCaptchaContact() {
             <h3 className="text-2xl text-red-400 py-7">
               Oops, Something went wrong!
             </h3>
-            <p className="text-gray-300 md:px-3">{message}</p>
+            <p className="text-gray-300 md:px-3">{Message}</p>
             <button className="mt-5 focus:outline-none" onClick={() => reset()}>
               Try Again
             </button>
