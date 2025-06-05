@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { useForm, useWatch } from "react-hook-form";
-import HCaptcha from '@hcaptcha/react-hcaptcha';
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
 export default function HCaptchaContact() {
   const {
@@ -13,7 +13,7 @@ export default function HCaptchaContact() {
   } = useForm({
     mode: "onTouched",
   });
-  
+
   const [isSuccess, setIsSuccess] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const captchaRef = useRef(null);
